@@ -1,4 +1,6 @@
 <script lang="ts">
+
+  import Files from '$lib/Files.svelte';
 	import type monaco from 'monaco-editor';
 	import { onMount } from 'svelte';
 	import editorWorker from 'monaco-editor/esm/vs/editor/editor.worker?worker';
@@ -33,8 +35,9 @@
 
 		Monaco = await import('monaco-editor');
 		editor = Monaco.editor.create(divEl, {
-			value: ['function x() {', '\tconsole.log("Hello world!");', '}'].join('\n'),
-			language: 'html'
+			value: ['<p>Hello World!</p>'].join('\n'),
+			language: 'html',
+      automaticLayout: true
 		});
 
 		return () => {
@@ -43,15 +46,28 @@
 	});
 </script>
 
-<div bind:this={divEl} />
-
+<div class="container">
+  <Files files={{
+    "index.html": "<p>Hello World!</p>"
+  }}></Files>
+  <div class="editor" bind:this={divEl} />
+</div>
 <style>
 	:global(body) {
 		margin: 0;
 		padding: 0;
 	}
 
-	div {
+  div.container {
+    display: grid;
+    grid-template-columns: min-content 1fr;
+    width: 100vw;
+    height: 100vh;
+  }
+
+	div.editor {
+    display: block;
+    position: relative;
 		height: 100vh;
 	}
 </style>
