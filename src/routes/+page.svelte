@@ -34,7 +34,7 @@
       Monaco = await import('monaco-editor');
       editor = Monaco.editor.create(divEl, {
           value: ['function x() {', '\tconsole.log("Hello world!");', '}'].join('\n'),
-          language: 'javascript'
+          language: 'html'
       });
 
       return () => {
